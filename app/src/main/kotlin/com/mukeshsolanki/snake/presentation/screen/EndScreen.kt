@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.mukeshsolanki.snake.R
+import com.mukeshsolanki.snake.data.Container
 import com.mukeshsolanki.snake.presentation.activity.GameActivity
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.AppButton
@@ -38,7 +39,10 @@ fun EndScreen(score: Int, onTryAgain: () -> Unit) {
                 modifier = Modifier.padding(padding8dp),
                 text = stringResource(id = R.string.your_score, score),
             )
-            AppButton(text = stringResource(R.string.try_again)) { onTryAgain.invoke() }
+            AppButton(text = stringResource(R.string.try_again)) {
+                Container.startTimer()
+                onTryAgain.invoke()
+            }
         }
     }
 }

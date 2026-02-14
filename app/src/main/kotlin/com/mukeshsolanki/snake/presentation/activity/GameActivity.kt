@@ -2,12 +2,15 @@ package com.mukeshsolanki.snake.presentation.activity
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import com.mukeshsolanki.snake.R
+import com.mukeshsolanki.snake.data.Container
 import com.mukeshsolanki.snake.data.cache.GameCache
 import com.mukeshsolanki.snake.data.model.HighScore
 import com.mukeshsolanki.snake.domain.base.BaseActivity
@@ -38,13 +41,19 @@ class GameActivity : BaseActivity() {
 
     @Composable
     override fun Content() {
+
+        // Coroutine for setting the timer
+        LaunchedEffect(Unit) {
+            Container.startTimer()
+        }
+
         scope = rememberCoroutineScope()
         dataStore = GameCache(applicationContext)
         playerName =
             dataStore.getPlayerName.collectAsState(initial = stringResource(id = R.string.default_player_name)).value
         highScores = dataStore.getHighScores.collectAsState(initial = listOf()).value.plus(
             HighScore(playerName, score.value)
-        ).sortedByDescending { it.score }.take(TOP_10)
+        )//.sortedByDescending { it.score }.take(TOP_10)
         Column {
             if (isPlaying.value) {
                 GameScreen(gameEngine, score.value)

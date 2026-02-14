@@ -11,6 +11,11 @@ class GameRepository(private val dao: GameDao) {
     }
 
     suspend fun insertNewScore(score: GameEntity){
-        dao.insertNewScore(score)
+
+        // Si
+        if (score.points != 0) {
+            dao.insertNewScore(score)
+        }
+
     }
 }

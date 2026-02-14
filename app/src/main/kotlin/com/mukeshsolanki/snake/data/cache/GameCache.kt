@@ -9,10 +9,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mukeshsolanki.snake.R
+import com.mukeshsolanki.snake.data.Container
+import com.mukeshsolanki.snake.data.model.GameEntity
 import com.mukeshsolanki.snake.data.model.HighScore
 import com.mukeshsolanki.snake.domain.base.DATASTORE_KEY_HIGH_SCORES
 import com.mukeshsolanki.snake.domain.base.DATASTORE_KEY_PLAYER_NAME
 import com.mukeshsolanki.snake.domain.base.DATASTORE_NAME
+import com.mukeshsolanki.snake.domain.base.TOP_10
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -34,9 +37,21 @@ class GameCache(private val context: Context) {
     }
 
     suspend fun saveHighScore(highScores: List<HighScore>) {
+
+        val filteredHighScores = highScores.sortedByDescending { it.score }.take(TOP_10)
         context.dataStore.edit { preferences ->
-            preferences[HIGH_SCORES_KEY] = Gson().toJson(highScores)
+            preferences[HIGH_SCORES_KEY] = Gson().toJson(filteredHighScores)
         }
+
+        // Obtener e insertar el highScore recién hecho
+        val lastHighScore = highScores.last()
+        val gameEntity = GameEntity(
+            player = lastHighScore.playerName,
+            points = lastHighScore.score,
+            secondsAlive = Container.stopTimer()
+        )
+
+        Container.repository.insertNewScore(gameEntity)
 
     }
 
