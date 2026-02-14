@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 //import com.mukeshsolanki.snake.BuildConfig
 import com.mukeshsolanki.snake.R
@@ -53,10 +54,11 @@ fun AboutScreen(navController: NavHostController) {
                 text = stringResource(R.string.about_game),
                 textAlign = TextAlign.Justify
             )
-            AppButton(
-                modifier = Modifier.width(width248dp),
-                text = stringResource(R.string.source_code)
-            ) { customTabsIntent.launchUrl(context, Uri.parse(REPO_URL)) }
+            PixelButton(
+                modifier = Modifier.width(248.dp),
+                text = stringResource(R.string.source_code),
+                onClick = { customTabsIntent.launchUrl(context, Uri.parse(REPO_URL)) }
+            )
         }
     }
 }

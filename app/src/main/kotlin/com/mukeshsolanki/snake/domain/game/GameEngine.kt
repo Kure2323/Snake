@@ -52,6 +52,8 @@ class GameEngine(
 
     init {
         scope.launch {
+            // Cuenta atrás para empezar la partida
+            delay(5000L)
             var snakeLength = 2
             while (true) {
                 delay(150)

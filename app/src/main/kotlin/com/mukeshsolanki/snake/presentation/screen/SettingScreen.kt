@@ -15,12 +15,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.data.cache.GameCache
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.AppButton
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
+import com.mukeshsolanki.snake.presentation.component.PixelButton
 import com.mukeshsolanki.snake.presentation.theme.border2dp
 import com.mukeshsolanki.snake.presentation.theme.padding16dp
 import com.mukeshsolanki.snake.presentation.theme.padding64dp
@@ -77,17 +79,20 @@ fun SettingScreen(navController: NavHostController) {
                     .padding(horizontal = padding64dp)
                     .border(width = border2dp, color = MaterialTheme.colorScheme.onBackground)
             )
-            AppButton(
-                text = stringResource(R.string.save), modifier = Modifier
-                    .width(width248dp)
-                    .padding(padding16dp)
-            ) {
-                scope.launch {
-                    dataStore.savePlayerName(text.text.trim())
-                    Toast.makeText(context, R.string.player_name_updated, Toast.LENGTH_SHORT).show()
-                    navController.popBackStack()
+
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+
+            PixelButton(
+                modifier = Modifier.width(248.dp),
+                text = stringResource(R.string.save),
+                onClick = {
+                    scope.launch {
+                        dataStore.savePlayerName(text.text.trim())
+                        Toast.makeText(context, R.string.player_name_updated, Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
                 }
-            }
+            )
         }
     }
 }

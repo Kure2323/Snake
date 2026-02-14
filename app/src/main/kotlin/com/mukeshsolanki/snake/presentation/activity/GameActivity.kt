@@ -19,6 +19,7 @@ import com.mukeshsolanki.snake.domain.game.GameEngine
 import com.mukeshsolanki.snake.presentation.screen.EndScreen
 import com.mukeshsolanki.snake.presentation.screen.GameScreen
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class GameActivity : BaseActivity() {
@@ -46,6 +47,7 @@ class GameActivity : BaseActivity() {
         LaunchedEffect(Unit) {
             Container.startTimer()
         }
+
 
         scope = rememberCoroutineScope()
         dataStore = GameCache(applicationContext)

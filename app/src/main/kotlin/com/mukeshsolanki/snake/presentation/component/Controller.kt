@@ -23,32 +23,49 @@ fun Controller(onDirectionChange: (Int) -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(padding24dp)
     ) {
-        AppIconButton(icon = Icons.Default.KeyboardArrowUp) {
-            if (currentDirection.value != SnakeDirection.Down) {
-                onDirectionChange.invoke(SnakeDirection.Up)
-                currentDirection.value = SnakeDirection.Up
+
+        PixelIconButton(
+            icon = Icons.Default.KeyboardArrowUp,
+            onClick = {
+                if (currentDirection.value != SnakeDirection.Down) {
+                    onDirectionChange.invoke(SnakeDirection.Up)
+                    currentDirection.value = SnakeDirection.Up
+                }
             }
-        }
+        )
+
         Row {
-            AppIconButton(icon = Icons.Default.KeyboardArrowLeft) {
-                if (currentDirection.value != SnakeDirection.Right) {
-                    onDirectionChange.invoke(SnakeDirection.Left)
-                    currentDirection.value = SnakeDirection.Left
+
+            PixelIconButton(
+                icon = Icons.Default.KeyboardArrowLeft,
+                onClick = {
+                    if (currentDirection.value != SnakeDirection.Right) {
+                        onDirectionChange.invoke(SnakeDirection.Left)
+                        currentDirection.value = SnakeDirection.Left
+                    }
                 }
-            }
+            )
             Spacer(modifier = buttonSize)
-            AppIconButton(icon = Icons.Default.KeyboardArrowRight) {
-                if (currentDirection.value != SnakeDirection.Left) {
-                    onDirectionChange.invoke(SnakeDirection.Right)
-                    currentDirection.value = SnakeDirection.Right
+
+            PixelIconButton(
+                icon = Icons.Default.KeyboardArrowRight,
+                onClick = {
+                    if (currentDirection.value != SnakeDirection.Left) {
+                        onDirectionChange.invoke(SnakeDirection.Right)
+                        currentDirection.value = SnakeDirection.Right
+                    }
+                }
+            )
+        }
+
+        PixelIconButton(
+            icon = Icons.Default.KeyboardArrowDown,
+            onClick = {
+                if (currentDirection.value != SnakeDirection.Up) {
+                    onDirectionChange.invoke(SnakeDirection.Down)
+                    currentDirection.value = SnakeDirection.Down
                 }
             }
-        }
-        AppIconButton(icon = Icons.Default.KeyboardArrowDown) {
-            if (currentDirection.value != SnakeDirection.Up) {
-                onDirectionChange.invoke(SnakeDirection.Down)
-                currentDirection.value = SnakeDirection.Down
-            }
-        }
+        )
     }
 }
