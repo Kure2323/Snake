@@ -1,5 +1,7 @@
 # Snake Game Android
 
+- BBDD IMPLEMENTADA POR COMPLETO
+
 - GameCache:
     - Línea 41-54, fun saveHighScore:
         - Filtra de forma desdenciente (por score) la lista de HighScores
