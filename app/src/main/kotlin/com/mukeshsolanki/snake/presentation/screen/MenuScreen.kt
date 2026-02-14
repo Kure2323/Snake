@@ -13,12 +13,12 @@ import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.domain.extension.launchActivity
 import com.mukeshsolanki.snake.domain.navigation.Screen
 import com.mukeshsolanki.snake.presentation.activity.GameActivity
-import com.mukeshsolanki.snake.presentation.component.AppButton
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
 import com.mukeshsolanki.snake.presentation.theme.border2dp
 import com.mukeshsolanki.snake.presentation.theme.padding16dp
-import com.mukeshsolanki.snake.presentation.theme.padding64dp
-import com.mukeshsolanki.snake.presentation.theme.width248dp
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.unit.dp
+import com.mukeshsolanki.snake.presentation.component.PixelButton
 
 @Composable
 fun MenuScreen(navController: NavHostController) {
@@ -28,27 +28,35 @@ fun MenuScreen(navController: NavHostController) {
             .padding(padding16dp)
             .border(width = border2dp, color = MaterialTheme.colorScheme.onBackground),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.SpaceAround
     ) {
         val context = LocalContext.current
         DisplayLarge(text = stringResource(id = R.string.app_name))
-        AppButton(
-            modifier = Modifier
-                .width(width248dp)
-                .padding(top = padding64dp),
-            text = stringResource(R.string.new_game)
-        ) { context.launchActivity<GameActivity>() }
-        AppButton(
-            modifier = Modifier.width(width248dp),
-            text = stringResource(id = R.string.high_score)
-        ) {
-            navController.navigate(Screen.HighScores.route)
-        }
-        AppButton(modifier = Modifier.width(width248dp), text = stringResource(R.string.settings)) {
-            navController.navigate(Screen.Settings.route)
-        }
-        AppButton(modifier = Modifier.width(width248dp), text = stringResource(R.string.about)) {
-            navController.navigate(Screen.About.route)
-        }
+
+
+        PixelButton(
+            modifier = Modifier.width(248.dp),
+            text = stringResource(R.string.new_game),
+            onClick = { context.launchActivity<GameActivity>() }
+        )
+
+        PixelButton(
+            modifier = Modifier.width(248.dp),
+            text = stringResource(R.string.high_score),
+            onClick = { navController.navigate(Screen.HighScores.route) }
+        )
+
+        PixelButton(
+            modifier = Modifier.width(248.dp),
+            text = stringResource(R.string.settings),
+            onClick = { navController.navigate(Screen.Settings.route) }
+        )
+
+        PixelButton(
+            modifier = Modifier.width(248.dp),
+            text = stringResource(R.string.about),
+            onClick = { navController.navigate(Screen.About.route) }
+        )
+
     }
 }
