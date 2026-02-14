@@ -37,7 +37,6 @@ class GameCache(private val context: Context) {
         context.dataStore.edit { preferences ->
             preferences[HIGH_SCORES_KEY] = Gson().toJson(highScores)
         }
-
     }
 
     suspend fun savePlayerName(name: String) {
