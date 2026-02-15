@@ -18,6 +18,8 @@ class GameEngine(
     private val onFoodEaten: () -> Unit
 ) {
     private val mutex = Mutex()
+
+    private var isPaused = mutableStateOf(true)
     private val mutableState =
         MutableStateFlow(
             State(
@@ -39,24 +41,41 @@ class GameEngine(
         }
 
     fun reset() {
-        mutableState.update {
-            it.copy(
-                food = Pair(5, 5),
-                snake = listOf(Pair(7, 7)),
-                currentDirection = SnakeDirection.Right
-            )
+        scope.launch {
+
+            isPaused.value = true
+
+            mutableState.update {
+                it.copy(
+                    food = Pair(5, 5),
+                    snake = listOf(Pair(7, 7)),
+                    currentDirection = SnakeDirection.Right
+                )
+            }
+
+
+            currentDirection.value = SnakeDirection.Right
+            move = Pair(1, 0)
+
+            delay(5000L)
+            isPaused.value = false
         }
-        currentDirection.value = SnakeDirection.Right
-        move = Pair(1, 0)
+
     }
 
     init {
         scope.launch {
+            isPaused.value = true
             // Cuenta atrás para empezar la partida
             delay(5000L)
+            isPaused.value = false
+
             var snakeLength = 2
             while (true) {
                 delay(150)
+
+                /** BARRERA PARA NO EMPEZAR HASTA QUE PASEN 5 SEGUNDOS **/
+                if (isPaused.value) continue
                 mutableState.update {
                     val hasReachedLeftEnd =
                         it.snake.first().first == 0 && it.currentDirection == SnakeDirection.Left

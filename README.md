@@ -56,3 +56,7 @@
 - presentation/component/Controller
   - Línea 18 - 71
     - Implementados PixelIconButton para la cruceta direccional
+
+- data/game/GameEngine
+  - Todo el archivo
+    - Implementado delay de 5 segundos tras reiniciar partida
