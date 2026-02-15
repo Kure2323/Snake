@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.domain.game.GameEngine
 import com.mukeshsolanki.snake.domain.game.SnakeDirection
+import com.mukeshsolanki.snake.domain.game.TypeFood
 import com.mukeshsolanki.snake.presentation.activity.GameActivity
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.Board
@@ -64,21 +65,32 @@ fun GameScreen(
                 }
 
 
-                state.value?.let { Board(it) }
+                state.value?.let { Board(it, typeFood) }
                 Controller {
-                    if (typeFood == 1) {
-                        when (it) {
-                            SnakeDirection.Down -> gameEngine.move = Pair(0, -1)
-                            SnakeDirection.Right -> gameEngine.move = Pair(-1, 0)
-                            SnakeDirection.Left -> gameEngine.move = Pair(1, 0)
-                            SnakeDirection.Up -> gameEngine.move = Pair(0, 1)
+                    when(typeFood) {
+                        TypeFood.BORRACHA.value -> {
+                            when (it) {
+                                SnakeDirection.Down -> gameEngine.move = Pair(0, -1)
+                                SnakeDirection.Right -> gameEngine.move = Pair(-1, 0)
+                                SnakeDirection.Left -> gameEngine.move = Pair(1, 0)
+                                SnakeDirection.Up -> gameEngine.move = Pair(0, 1)
+                            }
                         }
-                    } else {
-                        when (it) {
-                            SnakeDirection.Up -> gameEngine.move = Pair(0, -1)
-                            SnakeDirection.Left -> gameEngine.move = Pair(-1, 0)
-                            SnakeDirection.Right -> gameEngine.move = Pair(1, 0)
-                            SnakeDirection.Down -> gameEngine.move = Pair(0, 1)
+                        TypeFood.NORMAL.value -> {
+                            when (it) {
+                                SnakeDirection.Up -> gameEngine.move = Pair(0, -1)
+                                SnakeDirection.Left -> gameEngine.move = Pair(-1, 0)
+                                SnakeDirection.Right -> gameEngine.move = Pair(1, 0)
+                                SnakeDirection.Down -> gameEngine.move = Pair(0, 1)
+                            }
+                        }
+                        TypeFood.VELOZ.value -> {
+                            when (it) {
+                                SnakeDirection.Up -> gameEngine.move = Pair(0, -1)
+                                SnakeDirection.Left -> gameEngine.move = Pair(-1, 0)
+                                SnakeDirection.Right -> gameEngine.move = Pair(1, 0)
+                                SnakeDirection.Down -> gameEngine.move = Pair(0, 1)
+                            }
                         }
                     }
                 }

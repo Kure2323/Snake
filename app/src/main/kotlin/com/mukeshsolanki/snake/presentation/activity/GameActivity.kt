@@ -4,10 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import com.mukeshsolanki.snake.R
@@ -30,7 +28,7 @@ class GameActivity : BaseActivity() {
     private lateinit var playerName: String
     private lateinit var highScores: List<HighScore>
 
-    private var typeFood by mutableStateOf(TypeFood.NORMAL.value)
+    private var typeFood = mutableStateOf(TypeFood.NORMAL.value)
     private var gameEngine = GameEngine(
         scope = lifecycleScope,
         onGameEnded = {
@@ -39,7 +37,11 @@ class GameActivity : BaseActivity() {
                 scope.launch { dataStore.saveHighScore(highScores) }
             }
         },
-        onFoodEaten = { score.value++; typeFood = (0..1).random() }
+        onFoodEaten = {
+            score.value++
+            typeFood.value = (0..2).random()
+                      },
+        typeFood = typeFood
     )
 
     @Composable
@@ -60,14 +62,14 @@ class GameActivity : BaseActivity() {
         )//.sortedByDescending { it.score }.take(TOP_10)
         Column {
             if (isPlaying.value) {
-                GameScreen(gameEngine, score.value, typeFood)
+                GameScreen(gameEngine, score.value, typeFood.value)
             } else {
                 EndScreen(score.value) {
                     score.value = 0
                     gameEngine.reset()
                     isPlaying.value = true
                 }
-                typeFood = TypeFood.NORMAL.value
+                typeFood.value = TypeFood.NORMAL.value
             }
         }
     }

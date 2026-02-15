@@ -1,8 +1,10 @@
 package com.mukeshsolanki.snake.domain.game
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.mukeshsolanki.snake.data.model.State
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +17,8 @@ import java.util.Random
 class GameEngine(
     private val scope: CoroutineScope,
     private val onGameEnded: () -> Unit,
-    private val onFoodEaten: () -> Unit
+    private val onFoodEaten: () -> Unit,
+    typeFood: MutableState<Int>
 ) {
     private val mutex = Mutex()
 
@@ -65,7 +68,7 @@ class GameEngine(
     }
 
     init {
-        scope.launch {
+        scope.launch(Dispatchers.IO) {
             isPaused.value = true
             // Cuenta atrás para empezar la partida
             delay(5000L)
@@ -73,7 +76,11 @@ class GameEngine(
 
             var snakeLength = 2
             while (true) {
-                delay(150)
+                if (typeFood.value == TypeFood.VELOZ.value) {
+                    delay(100)
+                } else {
+                    delay(200)
+                }
 
                 /** BARRERA PARA NO EMPEZAR HASTA QUE PASEN 5 SEGUNDOS **/
                 if (isPaused.value) continue

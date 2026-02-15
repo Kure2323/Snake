@@ -84,3 +84,10 @@
     - Cuando el valor de 'typeFood' sea 1 la Snake estará borracha
 
 - Nuevo Enum TypeFood para los estados de la snake
+
+- GameEngine:
+  - Línea 79:
+    - Si el 'typeFood' es VELOZ se modifica el delay para que se mueva más rápido
+
+- Board:
+  - Añadida la animación de volocidad
