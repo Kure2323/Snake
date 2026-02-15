@@ -3,8 +3,6 @@ package com.mukeshsolanki.snake.data
 import android.content.Context
 import com.mukeshsolanki.snake.data.db.GameDatabase
 import com.mukeshsolanki.snake.data.repository.GameRepository
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.DurationUnit
 
 object Container {
 

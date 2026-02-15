@@ -6,7 +6,6 @@ import com.mukeshsolanki.snake.data.Container
 import com.mukeshsolanki.snake.data.model.GameEntity
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.stateIn
 
 class HighScoreViewModel: ViewModel() {

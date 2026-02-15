@@ -1,9 +1,14 @@
 package com.mukeshsolanki.snake.presentation.screen
 
+//import com.mukeshsolanki.snake.BuildConfig
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -14,14 +19,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-//import com.mukeshsolanki.snake.BuildConfig
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.domain.base.REPO_URL
-import com.mukeshsolanki.snake.presentation.component.*
+import com.mukeshsolanki.snake.presentation.component.AppBar
+import com.mukeshsolanki.snake.presentation.component.BodyLarge
+import com.mukeshsolanki.snake.presentation.component.DisplayLarge
+import com.mukeshsolanki.snake.presentation.component.PixelButton
+import com.mukeshsolanki.snake.presentation.component.TitleLarge
 import com.mukeshsolanki.snake.presentation.theme.border2dp
 import com.mukeshsolanki.snake.presentation.theme.padding16dp
 import com.mukeshsolanki.snake.presentation.theme.padding8dp
-import com.mukeshsolanki.snake.presentation.theme.width248dp
 
 @Composable
 fun AboutScreen(navController: NavHostController) {

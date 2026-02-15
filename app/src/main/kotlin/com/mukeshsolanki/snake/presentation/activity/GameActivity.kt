@@ -4,9 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import com.mukeshsolanki.snake.R
@@ -14,12 +15,11 @@ import com.mukeshsolanki.snake.data.Container
 import com.mukeshsolanki.snake.data.cache.GameCache
 import com.mukeshsolanki.snake.data.model.HighScore
 import com.mukeshsolanki.snake.domain.base.BaseActivity
-import com.mukeshsolanki.snake.domain.base.TOP_10
 import com.mukeshsolanki.snake.domain.game.GameEngine
+import com.mukeshsolanki.snake.domain.game.TypeFood
 import com.mukeshsolanki.snake.presentation.screen.EndScreen
 import com.mukeshsolanki.snake.presentation.screen.GameScreen
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class GameActivity : BaseActivity() {
@@ -29,6 +29,8 @@ class GameActivity : BaseActivity() {
     private lateinit var scope: CoroutineScope
     private lateinit var playerName: String
     private lateinit var highScores: List<HighScore>
+
+    private var typeFood by mutableStateOf(TypeFood.NORMAL.value)
     private var gameEngine = GameEngine(
         scope = lifecycleScope,
         onGameEnded = {
@@ -37,7 +39,7 @@ class GameActivity : BaseActivity() {
                 scope.launch { dataStore.saveHighScore(highScores) }
             }
         },
-        onFoodEaten = { score.value++ }
+        onFoodEaten = { score.value++; typeFood = (0..1).random() }
     )
 
     @Composable
@@ -58,13 +60,14 @@ class GameActivity : BaseActivity() {
         )//.sortedByDescending { it.score }.take(TOP_10)
         Column {
             if (isPlaying.value) {
-                GameScreen(gameEngine, score.value)
+                GameScreen(gameEngine, score.value, typeFood)
             } else {
                 EndScreen(score.value) {
                     score.value = 0
                     gameEngine.reset()
                     isPlaying.value = true
                 }
+                typeFood = TypeFood.NORMAL.value
             }
         }
     }

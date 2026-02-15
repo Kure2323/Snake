@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.util.*
+import java.util.Random
 
 class GameEngine(
     private val scope: CoroutineScope,
@@ -25,7 +25,8 @@ class GameEngine(
             State(
                 food = Pair(5, 5),
                 snake = listOf(Pair(7, 7)),
-                currentDirection = SnakeDirection.Right
+                currentDirection = SnakeDirection.Right,
+                typeFood = 0
             )
         )
     val state: Flow<State> = mutableState
@@ -108,6 +109,9 @@ class GameEngine(
                     }
                     if (newPosition == it.food) {
                         onFoodEaten.invoke()
+                        it.copy(
+                            typeFood = (0..1).random()
+                        )
                         snakeLength++
                     }
 

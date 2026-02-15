@@ -60,3 +60,14 @@
 - data/game/GameEngine
   - Todo el archivo
     - Implementado delay de 5 segundos tras reiniciar partida
+
+- GameActivity:
+  - Todo el archivo
+    - Nueva variable 'typeFood' que declara el tipo de comida y por ende el powerUp
+
+- GameScreen:
+  - Línea 72 - 85:
+    - Nuevo parámetro de entrada 'typeFood' que declara si está o no borracha la Snake
+    - Cuando el valor de 'typeFood' sea 1 la Snake estará borracha
+
+- Nuevo Enum TypeFood para los estados de la snake

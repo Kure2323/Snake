@@ -12,23 +12,25 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mukeshsolanki.snake.presentation.theme.DarkGreen
+import com.mukeshsolanki.snake.presentation.theme.SnakeFontFamily
 import com.mukeshsolanki.snake.presentation.theme.corner4dp
 import com.mukeshsolanki.snake.presentation.theme.size64dp
-import androidx.compose.ui.text.font.FontFamily
-import com.mukeshsolanki.snake.R
-import com.mukeshsolanki.snake.presentation.theme.SnakeFontFamily
 
 @Composable
 fun AppButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {

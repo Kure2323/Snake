@@ -16,7 +16,6 @@ import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.data.Container
 import com.mukeshsolanki.snake.presentation.activity.GameActivity
 import com.mukeshsolanki.snake.presentation.component.AppBar
-import com.mukeshsolanki.snake.presentation.component.AppButton
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
 import com.mukeshsolanki.snake.presentation.component.PixelButton
 import com.mukeshsolanki.snake.presentation.component.TitleLarge

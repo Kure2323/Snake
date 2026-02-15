@@ -2,7 +2,6 @@ package com.mukeshsolanki.snake.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Time
 
 @Entity(tableName = "scores")
 data class GameEntity(

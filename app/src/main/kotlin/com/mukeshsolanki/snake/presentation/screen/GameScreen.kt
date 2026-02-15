@@ -3,7 +3,6 @@ package com.mukeshsolanki.snake.presentation.screen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.domain.game.GameEngine
@@ -32,7 +30,11 @@ import com.mukeshsolanki.snake.presentation.theme.SnakeFontFamily
 import kotlinx.coroutines.delay
 
 @Composable
-fun GameScreen(gameEngine: GameEngine, score: Int) {
+fun GameScreen(
+    gameEngine: GameEngine,
+    score: Int,
+    typeFood: Int
+) {
     val state = gameEngine.state.collectAsState(initial = null)
     val activity = LocalContext.current as GameActivity
 
@@ -64,11 +66,20 @@ fun GameScreen(gameEngine: GameEngine, score: Int) {
 
                 state.value?.let { Board(it) }
                 Controller {
-                    when (it) {
-                        SnakeDirection.Up -> gameEngine.move = Pair(0, -1)
-                        SnakeDirection.Left -> gameEngine.move = Pair(-1, 0)
-                        SnakeDirection.Right -> gameEngine.move = Pair(1, 0)
-                        SnakeDirection.Down -> gameEngine.move = Pair(0, 1)
+                    if (typeFood == 1) {
+                        when (it) {
+                            SnakeDirection.Down -> gameEngine.move = Pair(0, -1)
+                            SnakeDirection.Right -> gameEngine.move = Pair(-1, 0)
+                            SnakeDirection.Left -> gameEngine.move = Pair(1, 0)
+                            SnakeDirection.Up -> gameEngine.move = Pair(0, 1)
+                        }
+                    } else {
+                        when (it) {
+                            SnakeDirection.Up -> gameEngine.move = Pair(0, -1)
+                            SnakeDirection.Left -> gameEngine.move = Pair(-1, 0)
+                            SnakeDirection.Right -> gameEngine.move = Pair(1, 0)
+                            SnakeDirection.Down -> gameEngine.move = Pair(0, 1)
+                        }
                     }
                 }
             }
