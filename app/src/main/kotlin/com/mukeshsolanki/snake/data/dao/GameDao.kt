@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GameDao {
-    @Query("SELECT * FROM scores ORDER BY points DESC")
+    @Query("SELECT * FROM scores ORDER BY points DESC LIMIT 10")
     fun getAllScores(): Flow<List<GameEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
