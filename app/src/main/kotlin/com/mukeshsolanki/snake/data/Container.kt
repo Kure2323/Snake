@@ -16,7 +16,7 @@ object Container {
     fun stopTimer(): Long {
         val before = millis
         millis = 0L
-        return (System.currentTimeMillis() - before)/1000
+        return ((System.currentTimeMillis() - before)/1000) - 5
     }
 
     fun init(c: Context) {

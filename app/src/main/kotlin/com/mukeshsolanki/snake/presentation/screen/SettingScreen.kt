@@ -2,6 +2,7 @@ package com.mukeshsolanki.snake.presentation.screen
 
 import android.widget.Toast
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -22,17 +24,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.data.cache.GameCache
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
 import com.mukeshsolanki.snake.presentation.component.PixelButton
+import com.mukeshsolanki.snake.presentation.theme.SnakeFontFamily
 import com.mukeshsolanki.snake.presentation.theme.border2dp
 import com.mukeshsolanki.snake.presentation.theme.padding16dp
 import com.mukeshsolanki.snake.presentation.theme.padding64dp
@@ -45,6 +52,8 @@ fun SettingScreen(navController: NavHostController) {
     val scope = rememberCoroutineScope()
     val focusRequester = remember { FocusRequester() }
     val context = LocalContext.current
+    var isTextEmpty by remember { mutableStateOf(false) }
+    var focusManager = LocalFocusManager.current
     AppBar(
         title = stringResource(R.string.title_settings),
         onBackClicked = { navController.popBackStack() }) {
@@ -57,7 +66,12 @@ fun SettingScreen(navController: NavHostController) {
                     start = padding16dp,
                     end = padding16dp
                 )
-                .border(width = border2dp, color = MaterialTheme.colorScheme.onBackground),
+                .border(width = border2dp, color = MaterialTheme.colorScheme.onBackground)
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        focusManager.clearFocus() // Esto cierra el teclado al clicar fuera del text field
+                    })
+                },
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             DisplayLarge(
@@ -70,6 +84,19 @@ fun SettingScreen(navController: NavHostController) {
                 text = stringResource(id = R.string.player_name),
                 textAlign = TextAlign.Center
             )
+
+            if (isTextEmpty){
+
+                Text(
+                    text = "The name cannot be empty!!",
+                    color = Color.LightGray,
+                    fontFamily = SnakeFontFamily,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 20.dp)
+                )
+            }
+
             LaunchedEffect(Unit) {
                 focusRequester.requestFocus()
             }
@@ -95,10 +122,17 @@ fun SettingScreen(navController: NavHostController) {
                 modifier = Modifier.width(248.dp),
                 text = stringResource(R.string.save),
                 onClick = {
-                    scope.launch {
-                        dataStore.savePlayerName(text.text.trim())
-                        Toast.makeText(context, R.string.player_name_updated, Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()
+
+                    if (text.text.isEmpty()){
+                        isTextEmpty = true
+                    } else {
+                        isTextEmpty = false
+
+                        scope.launch {
+                            dataStore.savePlayerName(text.text.trim())
+                            Toast.makeText(context, R.string.player_name_updated, Toast.LENGTH_SHORT).show()
+                            navController.popBackStack()
+                        }
                     }
                 }
             )

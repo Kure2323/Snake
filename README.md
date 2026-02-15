@@ -60,6 +60,19 @@
 - data/game/GameEngine
   - Todo el archivo
     - Implementado delay de 5 segundos tras reiniciar partida
+  
+- presentation/screen/HighScoreScreen
+  - Todo el archivo
+    - Implementado nuevo composable para mostrar las puntuaciones
+
+- presentation/viewmodel/HighScoreViewModel
+  - Todo el archivo
+    - Implementado viewmodel para mostrar scores de la db
+
+- presentation/screen/SettingsScreen
+  - Toda la columna
+    - Corregido fallo que deja poner tu nombre en blanco
+    - Implementada funcionalidad de esconder el teclado tras pulsar fuera de este
 
 - GameActivity:
   - Todo el archivo

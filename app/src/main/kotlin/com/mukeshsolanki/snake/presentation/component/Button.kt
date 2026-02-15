@@ -5,13 +5,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -25,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mukeshsolanki.snake.presentation.theme.DarkGreen
@@ -175,4 +181,27 @@ fun PixelIconButton(
             }
         }
     }
+}
+
+@Preview(showBackground = false)
+@Composable
+fun PixelButtonPreview(
+
+){
+    Column (
+        modifier = Modifier.background(color = Color.White).size(300.dp).padding(40.dp)
+    ){
+        PixelButton(
+            text = "BOTÓN",
+            onClick = {},
+            modifier = Modifier.width(248.dp)
+        )
+
+        Spacer(modifier =Modifier.padding(top=20.dp))
+        PixelIconButton(
+            icon = Icons.Default.KeyboardArrowRight,
+            onClick = {}
+        )
+    }
+
 }
