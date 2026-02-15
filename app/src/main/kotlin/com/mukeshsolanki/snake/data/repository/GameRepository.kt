@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GameRepository(private val dao: GameDao) {
 
-    suspend fun getAllScores(): Flow<List<GameEntity>> {
+    fun getAllScores(): Flow<List<GameEntity>> {
         return dao.getAllScores()
     }
 
