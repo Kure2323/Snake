@@ -91,3 +91,5 @@
 
 - Board:
   - Añadida la animación de volocidad
+  - Añadidos fondos según el power up
+  - Añadido texto explicativo del power up
