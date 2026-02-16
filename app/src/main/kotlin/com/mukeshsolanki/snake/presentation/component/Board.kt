@@ -75,7 +75,9 @@ fun Board(
             R.drawable.raul2,
             R.drawable.izan,
             R.drawable.izanypol,
-            R.drawable.pol
+            R.drawable.pol,
+            R.drawable.sergio1,
+            R.drawable.sergio2
         )
 
         while (typeFood == TypeFood.BORRACHA.value) {
