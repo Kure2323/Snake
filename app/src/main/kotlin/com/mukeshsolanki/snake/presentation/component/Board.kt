@@ -7,7 +7,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import com.mukeshsolanki.snake.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -32,9 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.data.model.State
 import com.mukeshsolanki.snake.domain.game.GameEngine
 import com.mukeshsolanki.snake.domain.game.TypeFood
@@ -43,7 +43,6 @@ import com.mukeshsolanki.snake.presentation.theme.SnakeFontFamily
 import com.mukeshsolanki.snake.presentation.theme.border2dp
 import com.mukeshsolanki.snake.presentation.theme.corner4dp
 import com.mukeshsolanki.snake.presentation.theme.padding16dp
-import com.mukeshsolanki.snake.presentation.theme.size64dp
 import kotlinx.coroutines.delay
 
 @Composable
@@ -53,6 +52,10 @@ fun Board(
     ) {
     val infiniteTransition = rememberInfiniteTransition()
 
+    var imageBorracho: Int by remember {
+        mutableStateOf(R.drawable.raul)
+    }
+
     var onBackgroundChange by remember { mutableStateOf(0) }
 
     LaunchedEffect(onBackgroundChange) {
@@ -60,6 +63,30 @@ fun Board(
             onBackgroundChange = (0..1).random()
             delay(2000)
         }
+    }
+
+    // Cambio de Serpiente
+    LaunchedEffect(typeFood) {
+
+        val resources = listOf(
+            R.drawable.nacho,
+            R.drawable.nacho2,
+            R.drawable.raul,
+            R.drawable.raul2,
+            R.drawable.izan,
+            R.drawable.izanypol,
+            R.drawable.pol
+        )
+
+        while (typeFood == TypeFood.BORRACHA.value) {
+
+            val index = (0..<resources.size).random()
+
+            delay(2000L)
+            imageBorracho = resources[index]
+
+        }
+
     }
 
     val drunkColor by infiniteTransition.animateColor(
@@ -108,7 +135,7 @@ fun Board(
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 fontFamily = SnakeFontFamily,
-                fontSize = 20.sp
+                fontSize = 40.sp
             )
         }
 
@@ -119,12 +146,11 @@ fun Board(
                 Modifier
                     .size(maxWidth)
                     .border(border2dp,
-                        color = if (typeFood == TypeFood.BORRACHA.value)
-                            drunkColor
-                        else if (typeFood == TypeFood.VELOZ.value)
-                            speedColor
-                        else
-                            DarkGreen
+                        color = when (typeFood) {
+                            TypeFood.BORRACHA.value -> drunkColor
+                            TypeFood.VELOZ.value -> speedColor
+                            else -> DarkGreen
+                        }
                     )
             ) {
                 when(typeFood){
@@ -164,15 +190,34 @@ fun Board(
                         DarkGreen, CircleShape
                     )
             )
+
+            // Snake box
             state.snake.forEach {
-                Box(
-                    modifier = Modifier
-                        .offset(x = tileSize * it.first, y = tileSize * it.second)
-                        .size(tileSize)
-                        .background(
-                            DarkGreen, RoundedCornerShape(corner4dp)
+                if (typeFood == TypeFood.BORRACHA.value) {
+                    Box(
+                        modifier = Modifier
+                            .offset(x = tileSize * it.first, y = tileSize * it.second)
+                            .size((tileSize.value + 10).dp)
+                    ) {
+                        Image(
+                            painter = painterResource(imageBorracho),
+                            contentDescription = "Imágenes de borrachos",
+                            contentScale = ContentScale.Fit
                         )
-                )
+
+                    }
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .offset(x = tileSize * it.first, y = tileSize * it.second)
+                            .size(tileSize)
+                            .background(
+                                DarkGreen, RoundedCornerShape(corner4dp)
+                            )
+                    )
+
+
+                }
             }
         }
     }

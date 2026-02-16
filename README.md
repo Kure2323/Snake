@@ -93,3 +93,4 @@
   - Añadida la animación de volocidad
   - Añadidos fondos según el power up
   - Añadido texto explicativo del power up
+  - Añadidos los borrachos, LaunchEffect que aleatoriamente cambia la Snake por borrachos
