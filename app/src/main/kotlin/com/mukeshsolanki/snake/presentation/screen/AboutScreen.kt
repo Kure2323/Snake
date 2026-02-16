@@ -6,6 +6,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mukeshsolanki.snake.R
+import com.mukeshsolanki.snake.domain.base.IZANPOL_REPO_URL
 import com.mukeshsolanki.snake.domain.base.REPO_URL
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.BodyLarge
@@ -58,12 +60,24 @@ fun AboutScreen(navController: NavHostController) {
             )
             BodyLarge(
                 modifier = Modifier.padding(padding16dp),
-                text = stringResource(R.string.about_game),
+                text = "Snake project modifier by Izan López Mora & Pol Gorrindo Bermejo " +
+                        "using Jetpack Compose & Room as persistance. " +
+                        "All the credits to the people that have participated and" +
+                        " for the original creator.",
                 textAlign = TextAlign.Justify
             )
+
             PixelButton(
                 modifier = Modifier.width(248.dp),
                 text = stringResource(R.string.source_code),
+                onClick = { customTabsIntent.launchUrl(context, Uri.parse(IZANPOL_REPO_URL)) }
+            )
+
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+
+            PixelButton(
+                modifier = Modifier.width(248.dp),
+                text = "ORIGINAL CODE",
                 onClick = { customTabsIntent.launchUrl(context, Uri.parse(REPO_URL)) }
             )
         }

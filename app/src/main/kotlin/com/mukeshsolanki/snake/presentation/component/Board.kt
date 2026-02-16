@@ -68,7 +68,7 @@ fun Board(
     // Cambio de Serpiente
     LaunchedEffect(typeFood) {
 
-        val resources = listOf(
+        val borrachos = listOf(
             R.drawable.nacho,
             R.drawable.nacho2,
             R.drawable.raul,
@@ -80,10 +80,10 @@ fun Board(
 
         while (typeFood == TypeFood.BORRACHA.value) {
 
-            val index = (0..<resources.size).random()
+            val index = (0..< borrachos.size).random()
 
             delay(2000L)
-            imageBorracho = resources[index]
+            imageBorracho = borrachos[index]
 
         }
 
@@ -221,6 +221,4 @@ fun Board(
             }
         }
     }
-
-
 }
